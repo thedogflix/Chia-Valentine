@@ -31,11 +31,6 @@
       position: relative;
     }
 
-    .emoji {
-      font-size: 64px;
-      margin-bottom: 20px;
-    }
-
     h1 {
       font-size: 22px;
       color: #333;
@@ -108,44 +103,52 @@
 
   <!-- Screen 2 -->
   <div class="card hidden" id="screen2">
-    <div class="emoji">🎉✨</div>
+    <div style="font-size:64px;">🎉✨</div>
     <h1>Chia will you be my girlfriend?</h1>
     <div class="yay">YAY!</div>
   </div>
 
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
+    emailjs.init("jX6YqAKmAmZSR-uXb");
+
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const screen1 = document.getElementById("screen1");
     const screen2 = document.getElementById("screen2");
 
-    // Make NO button escape
+    // NO button escape
     function moveNoButton() {
-      const card = document.querySelector(".buttons");
-      const maxX = card.clientWidth - noBtn.offsetWidth;
-      const maxY = card.clientHeight - noBtn.offsetHeight;
+      const area = document.querySelector(".buttons");
+      const maxX = area.clientWidth - noBtn.offsetWidth;
+      const maxY = area.clientHeight - noBtn.offsetHeight;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
     }
 
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("click", moveNoButton);
-
-    // Mobile touch support (NO gets smaller instead)
     noBtn.addEventListener("touchstart", () => {
       noBtn.style.transform = "scale(0.6)";
     });
 
-    // YES click → next screen
+    // YES click → screen change + email
     yesBtn.addEventListener("click", () => {
       screen1.classList.add("hidden");
       screen2.classList.remove("hidden");
+
+      emailjs.send(
+        "service_cdsp6b9",
+        "template_ivwp24r",
+        {
+          time: new Date().toLocaleString()
+        }
+      );
     });
   </script>
 
 </body>
 </html>
+
