@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For Chia 💙</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #cfefff, #e8f7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: #ffffff;
+      width: 90%;
+      max-width: 420px;
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .emoji {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #yesBtn {
+      background: #3ba7ff;
+      color: white;
+      font-size: 20px;
+      padding: 16px 40px;
+      border-radius: 40px;
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(59, 167, 255, 0.4);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.05);
+    }
+
+    #noBtn {
+      position: absolute;
+      background: #ffffff;
+      color: #666;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .yay {
+      font-size: 26px;
+      margin-top: 10px;
+      color: #3ba7ff;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Screen 1 -->
+  <div class="card" id="screen1">
+    <div class="emoji">🐱💙</div>
+    <h1>Chia will you be my valentine?</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <!-- Screen 2 -->
+  <div class="card hidden" id="screen2">
+    <div class="emoji">🎉✨</div>
+    <h1>Chia will you be my girlfriend?</h1>
+    <div class="yay">YAY!</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const screen1 = document.getElementById("screen1");
+    const screen2 = document.getElementById("screen2");
+
+    // Make NO button escape
+    function moveNoButton() {
+      const card = document.querySelector(".buttons");
+      const maxX = card.clientWidth - noBtn.offsetWidth;
+      const maxY = card.clientHeight - noBtn.offsetHeight;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("click", moveNoButton);
+
+    // Mobile touch support (NO gets smaller instead)
+    noBtn.addEventListener("touchstart", () => {
+      noBtn.style.transform = "scale(0.6)";
+    });
+
+    // YES click → next screen
+    yesBtn.addEventListener("click", () => {
+      screen1.classList.add("hidden");
+      screen2.classList.remove("hidden");
+    });
+  </script>
+
+</body>
+</html>
